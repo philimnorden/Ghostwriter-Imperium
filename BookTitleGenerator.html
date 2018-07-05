@@ -1,0 +1,99 @@
+<html>
+<button onclick="updateText()"> Generate Book Title </button>
+<span id="txt"></span>
+
+<script type="text/javascript">
+function updateText(){
+	document.getElementById("txt").innerHTML = generateBookTitle();
+}
+
+function generateBookTitle(){
+	var amountCases = 10;
+	var i = Math.floor(Math.random()* amountCases);
+	var title;
+	
+	 
+	switch(i){
+		case 0:
+			title = getAdjective();
+			break;
+		case 1:
+			title = getNoun();
+			break;
+		case 2:
+			title = getAdjective() + " " + getNoun();
+			break;
+		case 3:
+			title = getNumeral();
+			break;
+		case 4:
+			title = getNumeral() + " " + getNoun() + "s";
+			break;
+		case 5:
+			title = getNumeral() + " " + getAdjective() + " " + getNoun() + "s";
+			break;
+		case 6:
+			title = "The " + getNoun();
+			break;
+		case 7:
+			title = "The " + getAdjective() + " " + getNoun();
+			break;
+		case 8:
+			title = "The " + getNumeral() + " " + getNoun() + "s";
+			break;
+		case 9:
+			title = "The " + getNumeral() + " " + getAdjective() + " " + getNoun() + "s";
+			break;
+		
+		default:
+			return "Javascript Error";
+	}
+	 // Add random punctuation
+	if(Math.random()<0.1){
+		var amountPunctuationCases = 7;
+		var p = Math.floor(Math.random()* amountPunctuationCases);
+		
+		switch (p){
+			case 0:
+				return title + ".";
+				break;
+			case 1:
+				return title + "...";
+				break;
+			case 2:
+				return title + "!";
+				break;
+			case 3:
+				return "(" + title + ")";
+				break;
+			case 4:
+				return title + "?";
+				break;
+			case 5:
+				return title + "!!!";
+				break;
+			case 6:
+				return "... " + title + " ...";
+				break;
+		}
+	
+	}
+	return title;
+}
+
+// Generate Word
+function getNoun(){
+	var nouns = ["Apple","Tree","Tower","Empire","City","Country","King","Ring","Bird","Ship","Boat","Ocean","Eye","Heart","Pain","Pleasure","Power"];
+	return nouns[Math.floor(Math.random()*nouns.length)];
+}
+function getAdjective(){
+	var adjectives = ["Blue","Silly","Pretty","Hungry","New","First","Last","Little","Old","Young","Early","Important","Public"];
+	return adjectives[Math.floor(Math.random()*adjectives.length)];
+}
+function getNumeral(){
+	var numerals = ["Dozen","Most","Least","Some","Any","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","One Hundred"];
+	return numerals[Math.floor(Math.random()*numerals.length)];
+}
+</script>
+
+</html>

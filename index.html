@@ -1,0 +1,178 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ghostwriter Imperium</title>
+	
+	<!-- cached online boostraps -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+
+
+</head>
+<body>
+
+<div class="row">
+	<div class="col-md-12">
+		Ghostwriter Imperium
+	</div>
+	<!-- left panel -->
+	<div class="col-md-6">
+		<div id="textScroll" class="col-md-12">
+			Hier läuft der  Text durch
+		</div>
+		<div id="clickArea" class="col-md-12" onclick="clickEvent()">
+			Write!
+		</div>
+	</div>
+	<!-- right panel -->
+	<div class="col-md-6">
+	<div style="border: thin solid black">
+		Stats: <br>
+		You have $ <div id="number" style="font-size:20px;"></div>
+
+		</div>
+
+		<div style="border: thin solid black">
+		Shop:
+		<div class="mybtn" onclick="upgradeAmount()">Upgrade Writing Speed</div>
+		Cost:
+		<div id="upgradeAmountCost"></div>
+		You write words per click
+		<div id="amount"></div>
+		<br><br>
+		<div class="mybtn" onclick="upgradeAutoClicker()">Hire student</div>
+		Cost:
+		<div id="AutoClickerCost"></div>
+		Writes Words per 10s:
+		<div id="amountAutoClicker"></div>
+		</div>
+	</div>
+</div>
+
+
+<!--
+<div id="clickArea" onclick="clickEvent()">
+Click Me!
+</div>
+
+<div style="border: thin solid black">
+Stats: <br>
+You have <div id="number" style="font-size:20px;"></div>
+
+</div>
+
+<div style="border: thin solid black">
+Shop:
+<div class="mybtn" onclick="upgradeAmount()">Upgrade Click Power</div>
+Cost:
+<div id="upgradeAmountCost"></div>
+You gain per click
+<div id="amount"></div>
+<br><br>
+<div class="mybtn" onclick="upgradeAutoClicker()">Upgrade Auto Clicker</div>
+Cost:
+<div id="AutoClickerCost"></div>
+Auto Clicks per 10s:
+<div id="amountAutoClicker"></div>
+</div>
+
+-->
+
+<style>
+#textScroll{
+height: 400px;
+}
+#clickArea{
+height: 100px;
+font-size: 30px;
+background-color: lightgray;
+cursor: pointer;
+}
+
+#clickArea:hover{
+background-color: gray;
+}
+
+.mybtn{
+}
+.mybtn:hover{
+cursor: pointer;
+text-decoration: underline;
+}
+</style>
+
+<script type="text/javascript">
+var number = 0;
+var amount = 1;
+var upgradeAmountCost = 20;
+
+var amountAutoClicker = 0;
+var intervalAutoClicker = 10*1000;
+var upgradeAutoClickerCost = 10;
+
+var autoClicker;
+
+function clickEvent(){
+number= number+amount;
+refreshNumber();
+
+}
+
+function refreshAutoClicker(){
+clearInterval(autoClicker);
+var ms = Math.round(intervalAutoClicker/amountAutoClicker);
+autoClicker = setInterval(clickEvent, ms);
+}
+
+function refreshNumber(){
+	document.getElementById("number").innerHTML= number;
+}
+function refreshAmount(){
+	document.getElementById("amount").innerHTML= amount;
+}
+function refreshUpgradeAmountCost(){
+	document.getElementById("upgradeAmountCost").innerHTML= upgradeAmountCost;
+}
+function refreshAutoClickerCost(){
+	document.getElementById("AutoClickerCost").innerHTML= upgradeAutoClickerCost;
+}
+function refreshamountAutoClicker(){
+	document.getElementById("amountAutoClicker").innerHTML= amountAutoClicker;
+}
+function upgradeAmount(){
+	if(number>=upgradeAmountCost){
+		number=number-upgradeAmountCost;
+		amount=amount+1;
+		upgradeAmountCost=upgradeAmountCost+amount;
+		refreshAll();
+	}
+}
+
+function upgradeAutoClicker(){
+	if(number>=upgradeAutoClickerCost){
+		number=number-upgradeAutoClickerCost;
+		amountAutoClicker=amountAutoClicker+1;
+		upgradeAutoClickerCost=upgradeAutoClickerCost*2;
+		refreshAutoClicker();
+		refreshAll();
+	}
+}
+
+function refreshAll(){
+refreshNumber();
+refreshAmount();
+refreshUpgradeAmountCost();
+refreshAutoClickerCost();
+refreshamountAutoClicker();
+}
+
+refreshAll();
+
+document.addEventListener('keypress', clickEvent);
+</script>
+</body>
+</html>
